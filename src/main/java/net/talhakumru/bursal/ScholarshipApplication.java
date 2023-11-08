@@ -2,8 +2,8 @@ package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
 
-@ManagedBean
-public class Registration {
+@ManagedBean(name = "app")
+public class ScholarshipApplication {
 	
 	private String firstName;
 	private String lastName;
@@ -11,7 +11,7 @@ public class Registration {
 	private String university;
 	private String address;
 	
-	public Registration() {
+	public ScholarshipApplication() {
 		
 	}
 
