@@ -1,8 +1,12 @@
 package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import com.google.gson.Gson;
 
 @ManagedBean(name = "app")
+@SessionScoped
 public class ScholarshipApplication {
 	
 	private String firstName;
@@ -12,7 +16,7 @@ public class ScholarshipApplication {
 	private String address;
 	
 	public ScholarshipApplication() {
-		
+
 	}
 
 	public String getFirstName() {
@@ -55,5 +59,9 @@ public class ScholarshipApplication {
 		this.address = address;
 	}
 	
-	
+	public String sendApplication() {
+		Gson gson = new Gson();
+		RestController restController = new RestController();
+		return restController.sendApplication(gson.toJson(this));
+	}
 }

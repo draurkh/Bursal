@@ -21,15 +21,16 @@
     	<br/><br/>
     	
     	<h:form>
-    		E-posta: <h:inputText id="email" value="#{admin.email}" />
     	
-    		<br/><br/>
-    	
-    		Şifre: <h:inputSecret id="passwd" value="#{admin.password}" />
+    		<h:panelGrid columns="2" >
+    			E-posta: <h:inputText id="email" value="#{admin.email}" />
+	    	
+	    		Şifre: <h:inputSecret id="passwd" value="#{admin.password}" />
+	    		
+	    		<h:commandButton value="Giriş" action="#{admin.login}" />
+    		</h:panelGrid>
     		
-    		<br/><br/>
     		
-    		<h:commandButton value="Giriş" onclick="" />
     	</h:form>
     	
     </h:body>

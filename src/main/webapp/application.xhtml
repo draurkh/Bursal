@@ -30,34 +30,40 @@
 	
 		<h:form enctype="multipart/form-data" >
 		
-			Ad: <h:inputText id="firstName" required="true" value="#{app.firstName}"   />
+			<h:panelGrid columns="2">
+				İsim: <h:inputText id="firstName" required="true" value="#{app.firstName}"   />
 			
-			<br/><br/>
+				
+				
+				Soyisim: <h:inputText id="lastName" required="true" value="#{app.lastName}" requiredMessage="Lütfen başvuruyu göndermeden önce soyadınızı giriniz." />
+				
+				
+				
+				Doğum Tarihi: <h:inputText id="birthday" required="true" value="#{app.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz." />
+				
+				
+				
+				Üniversite: <h:inputText id="university" required="true" value="#{app.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
+				
+				
+				
+				Adres: <h:inputTextarea id="address" required="true" value="#{app.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
+				
+				
+				
+				CV: <h:inputFile  id="cv"  />
+				
+				<br/>
+				
+				<h:panelGroup>
+					<h:commandButton value="Gönder" action="#{app.sendApplication}" />
+				</h:panelGroup>
 			
-			Soyad: <h:inputText id="lastName" required="true" value="#{app.lastName}" requiredMessage="Lütfen başvuruyu göndermeden önce soyadınızı giriniz." />
+				
+			</h:panelGrid>
+		
 			
-			<br/><br/>
-			
-			Doğum Tarihi: <h:inputText id="birthday" required="true" value="#{app.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz." />
-			
-			<br/><br/>
-			
-			Üniversite: <h:inputText id="university" required="true" value="#{app.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
-			
-			<br/><br/>
-			
-			Adres: <h:inputTextarea id="address" required="true" value="#{app.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
-			
-			<br/><br/>
-			
-			CV: <h:inputFile  id="cv"  />
-			
-			<br/><br/>
-			
-			<h:commandButton value="Gönder" action="response_view" />
 		</h:form>
-		
-		
 	</h:body>
 	
 </html>

@@ -27,6 +27,10 @@ public class Admin {
 		this.password = password;
 	}
 	
-	
+	public String login() {
+		RestController restController = new RestController();
+		
+		return restController.loginAsAdmin(email);
+	}
 	
 }
