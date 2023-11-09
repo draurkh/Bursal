@@ -1,5 +1,8 @@
 package net.talhakumru.bursal;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.Reader;
 import java.net.Authenticator;
 import java.net.URI;
@@ -65,6 +68,14 @@ public class RestController {
 			HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 			
 			System.out.println(response.body());
+			
+			try {
+				System.out.println(System.getProperty("user.dir"));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			
 			
 			
