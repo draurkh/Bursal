@@ -2,6 +2,8 @@ package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
 
+import org.bson.types.ObjectId;
+
 @ManagedBean
 public class Admin {
 	private String email;
@@ -10,7 +12,7 @@ public class Admin {
 	public Admin() {
 		
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -27,10 +29,15 @@ public class Admin {
 		this.password = password;
 	}
 	
+	@Override
+	public String toString() {
+		return "Admin [\n  email=" + email + ",\n  password=" + password + "\n]";
+	}
+
 	public String login() {
 		RestController restController = new RestController();
 		
-		return restController.loginAsAdmin(email);
+		return restController.loginAsAdmin(email, password);
 	}
 	
 }

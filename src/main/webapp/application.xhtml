@@ -39,31 +39,24 @@
 				
 				
 				
-				Doğum Tarihi: <h:inputText id="birthday" required="true" value="#{app.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz." />
-				
-				
+				Doğum Tarihi: <h:inputText id="birthday" p:type="date" required="true" value="#{app.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz."/>
 				
 				Üniversite: <h:inputText id="university" required="true" value="#{app.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
 				
+				Tam Adres: <h:inputTextarea id="address" required="true" value="#{app.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
 				
-				
-				Adres: <h:inputTextarea id="address" required="true" value="#{app.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
-				
-				
-				
-				CV: <h:inputFile  id="cv"  />
-				
-				<br/>
-				
-				<h:panelGroup>
-					<h:commandButton value="Gönder" action="#{app.sendApplication}" />
-				</h:panelGroup>
+				CV: <h:inputFile id="cv-file" p:type="file" p:accept="image/*,.pdf" value="#{app.cv}" />
 			
 				
 			</h:panelGrid>
-		
 			
+			<br/><br/>
+			
+			<h:commandButton id="send-document" value="Gönder" action="#{app.sendApplication}" />
 		</h:form>
+		
+		
+		
 	</h:body>
 	
 </html>
