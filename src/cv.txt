@@ -1,0 +1,1 @@
+CV: <h:inputFile id="cv-file" p:type="file" p:accept="image/*,.pdf" value="#{app.cv}" />

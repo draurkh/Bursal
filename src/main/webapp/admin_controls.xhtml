@@ -17,11 +17,14 @@
     
     <h:body>
     
-    	<h1 style="text-align:center" >BURS BAŞVURULARI</h1>
+    	<h1>BURS BAŞVURULARI</h1>
+    	
+    	<br/><br/>
+    	
     	<ul>
-    		<ui:repeat var="name" value="#{app_list.applications}">
-    			<li> #{name} </li>
-    		</ui:repeat>
+   			<ui:repeat var="listEntry" value="#{app_list.listEntries}">
+   				<li> <a href="application_details?#{listEntry}" >#{listEntry}</a> </li>
+   			</ui:repeat>
     	</ul>
     </h:body>
     

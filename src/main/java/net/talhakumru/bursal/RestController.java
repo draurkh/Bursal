@@ -2,19 +2,8 @@ package net.talhakumru.bursal;
 
 import static com.mongodb.client.model.Filters.eq;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.bean.ApplicationScoped;
-
-import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -30,6 +19,11 @@ public class RestController {
 		MongoDatabase database = MongoInstance.getMongoDatabase();
 		admins = database.getCollection("admins", Admin.class);
 		applications  = database.getCollection("applications", ScholarshipApplication.class);
+	}
+	
+	public ScholarshipApplication getFirst() {
+		ScholarshipApplication application = applications.find().first();
+		return application;
 	}
 
 	public String sendApplication(@NonNull ScholarshipApplication application) {
@@ -70,8 +64,14 @@ public class RestController {
 		return null;
 	}
 	
-	public FindIterable<ScholarshipApplication> getApplications() {
-		return applications.find();
+	public List<ScholarshipApplication> getApplications() {
+		ArrayList<ScholarshipApplication> list = new ArrayList<ScholarshipApplication>();
+		System.out.println("list before: " + list);
+		for (ScholarshipApplication application : applications.find()) {
+			list.add(application);
+		}
+		System.out.println("list after: " + list);
+		return list;
 	}
 	
 	public String loginAsAdmin(String email, String password) {
@@ -80,7 +80,7 @@ public class RestController {
 		System.out.println(admin);
 		
 		if (admin != null && password.equals(admin.getPassword())) {
-			return "/admin_controls?faces-redirect=true";
+			return "admin_controls?faces-redirect=true";
 		} 
 		
 		return null;
