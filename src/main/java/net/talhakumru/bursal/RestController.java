@@ -3,36 +3,45 @@ package net.talhakumru.bursal;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.mongodb.client.FindIterable;
+import org.bson.Document;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.lang.NonNull;
 
 public class RestController {
-	private MongoCollection<Admin> admins;
-	private MongoCollection<ScholarshipApplication> applications;
+	private MongoCollection<Document> admins;
+	private MongoCollection<Document> applications;
 	
 	public RestController() {
 		MongoDatabase database = MongoInstance.getMongoDatabase();
-		admins = database.getCollection("admins", Admin.class);
-		applications  = database.getCollection("applications", ScholarshipApplication.class);
-	}
-	
-	public ScholarshipApplication getFirst() {
-		ScholarshipApplication application = applications.find().first();
-		return application;
+		admins = database.getCollection("admins");
+		applications  = database.getCollection("applications");
 	}
 
-	public String sendApplication(@NonNull ScholarshipApplication application) {
+	public String sendApplication(@NonNull ApplicationDocument application) {
 		
+		if (application == null) throw new NullPointerException("Application cannot be null.");
+		
+		System.out.println("Application:");
 		System.out.println(application);
 		
+		Document newDocument = new Document()
+				.append("firstName", application.getFirstName()) 
+				.append("lastName", application.getLastName())
+				.append("birthday", application.getBirthday()) 
+				.append("university", application.getUniversity()) 
+				.append("address", application.getAddress());
+		
+		System.out.println("Application to Document:");
+		System.out.println(newDocument);
 		
 		try {
-			InsertOneResult result = applications.insertOne(application);
+			InsertOneResult result = applications.insertOne(newDocument);
 			
 			System.out.println("Success! Inserted document id: " + result.getInsertedId());
 			
@@ -64,22 +73,30 @@ public class RestController {
 		return null;
 	}
 	
-	public List<ScholarshipApplication> getApplications() {
-		ArrayList<ScholarshipApplication> list = new ArrayList<ScholarshipApplication>();
-		System.out.println("list before: " + list);
-		for (ScholarshipApplication application : applications.find()) {
-			list.add(application);
+	public List<ApplicationDocument> getApplications() {
+		//ArrayList<ScholarshipApplication> list = applications.find().into(new ArrayList<ScholarshipApplication>());
+		/*
+		 * for (ScholarshipApplication application : applications.find()) {
+		 * list.add(application); }
+		 */
+		ArrayList<ApplicationDocument> apps = new ArrayList<ApplicationDocument>() ;
+		List<Document> list = applications.find().into(new ArrayList<Document>());
+		
+		for (Iterator<Document> doc = list.iterator(); doc.hasNext();) {
+			apps.add(new ApplicationDocument(doc.next()));
 		}
+		
 		System.out.println("list after: " + list);
-		return list;
+		System.out.println("apps after: " + apps);
+		return apps;
 	}
 	
 	public String loginAsAdmin(String email, String password) {
 		
-		Admin admin = admins.find(eq("email", email)).first();
+		Document admin = admins.find(eq("email", email)).first();
 		System.out.println(admin);
 		
-		if (admin != null && password.equals(admin.getPassword())) {
+		if (admin != null && password.equals(admin.getString("password"))) {
 			return "admin_controls?faces-redirect=true";
 		} 
 		

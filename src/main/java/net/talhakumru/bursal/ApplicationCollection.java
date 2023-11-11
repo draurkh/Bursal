@@ -5,18 +5,23 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-@ManagedBean(name = "app_list")
+@ManagedBean(name = "app_coll")
 public class ApplicationCollection {
 	
-	private ArrayList<ScholarshipApplication> applications;
+	private ArrayList<ApplicationDocument> applications;
 	private List<String> listEntries;
 	
 	public ApplicationCollection() {
-		applications = new ArrayList<ScholarshipApplication>();
+		applications = new ArrayList<ApplicationDocument>();
 		listEntries = new ArrayList<String>();
 	}
+	
+	public ArrayList<ApplicationDocument> getApplications() {
+		setApplications();
+		return applications;
+	}
 
-	public void setApplications() {
+	private void setApplications() {
 		applications.clear();
 		applications.addAll(new RestController().getApplications());
 		if (applications == null) {
@@ -28,12 +33,12 @@ public class ApplicationCollection {
 	}
 	
 	public List<String> getListEntries() {
-		setApplications();
 		setListEntries();
 		return listEntries;
 	}
 
-	public void setListEntries() {
+	private void setListEntries() {
+		setApplications();
 		listEntries.clear();
 		for (int i = 0; i < applications.size(); i++) {
 			listEntries.add(applications.get(i).toListEntry());

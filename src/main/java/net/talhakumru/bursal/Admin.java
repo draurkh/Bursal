@@ -1,11 +1,14 @@
 package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.bson.types.ObjectId;
 
 @ManagedBean
+@SessionScoped
 public class Admin {
+	private ObjectId _id;
 	private String email;
 	private String password;
 	
@@ -13,6 +16,14 @@ public class Admin {
 		
 	}
 	
+	public ObjectId get_id() {
+		return _id;
+	}
+
+	public void set_id(ObjectId _id) {
+		this._id = _id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -31,7 +42,7 @@ public class Admin {
 	
 	@Override
 	public String toString() {
-		return "Admin [\n  email=" + email + ",\n  password=" + password + "\n]";
+		return "Admin [\n  _id=" + _id +  "\n  email=" + email + ",\n  password=" + password + "\n]";
 	}
 
 	public String login() {

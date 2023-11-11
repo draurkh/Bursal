@@ -19,13 +19,24 @@
     
     	<h1>BURS BAŞVURULARI</h1>
     	
-    	<br/><br/>
-    	
-    	<ul>
-   			<ui:repeat var="listEntry" value="#{app_list.listEntries}">
-   				<li> <a href="application_details?#{listEntry}" >#{listEntry}</a> </li>
-   			</ui:repeat>
-    	</ul>
+    	<table cellspacing="10" >
+    		<thead align="left" >
+    			<tr  >
+    				<th>Başvuran</th>
+    				<th>Tarih</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+   				<ui:repeat value="#{app_coll.applications}" var="app_entry">
+   					<tr>
+   						<td>
+   							<a href="application_details?#{app_entry.get_id()}" >#{app_entry.toListEntry()}</a>
+   						</td>
+   						<td>#{app_entry.get_id().getDate()}</td>
+   					</tr>
+   				</ui:repeat>
+    		</tbody>
+		</table>
     </h:body>
     
 </html>

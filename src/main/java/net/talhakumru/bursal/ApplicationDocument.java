@@ -1,16 +1,19 @@
 package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.catalina.core.ApplicationPart;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 @ManagedBean(name = "app")
-@SessionScoped
-public class ScholarshipApplication {
+@RequestScoped
+public class ApplicationDocument {
 	
 	private final short CV_FILE_SIZE_LIMIT = 5; // MB
 	
+	private ObjectId _id;
 	private String firstName;
 	private String lastName;
 	private String birthday;
@@ -18,7 +21,25 @@ public class ScholarshipApplication {
 	private String address;
 	//private ApplicationPart cv;
 	
-	public ScholarshipApplication() {
+	public ApplicationDocument() {
+		
+	}
+	
+	public ApplicationDocument(Document doc) {
+		_id = doc.getObjectId("_id");
+		firstName = doc.getString("firstName");
+		lastName = doc.getString("lastName");
+		birthday = doc.getString("birthday");
+		university = doc.getString("university");
+		address = doc.getString("address");
+	}
+
+	public ObjectId get_id() {
+		return _id;
+	}
+
+	public void set_id(ObjectId _id) {
+		this._id = _id;
 	}
 
 	public String getFirstName() {
@@ -96,7 +117,7 @@ public class ScholarshipApplication {
 	
 	@Override
 	public String toString() {
-		return  "Application [\n  firstName=" + firstName + ",\n  lastName=" + lastName + "\n  birthday=" + birthday + "\n  university=" + university + "\n  address=" + address + "\n]";
+		return  "Application [\n _id=" + _id + "\n  firstName=" + firstName + ",\n  lastName=" + lastName + "\n  birthday=" + birthday + "\n  university=" + university + "\n  address=" + address + "\n]";
 	}
 	
 	
