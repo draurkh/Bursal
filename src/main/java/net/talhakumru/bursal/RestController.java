@@ -7,11 +7,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.lang.NonNull;
+
+import net.talhakumru.bursal.Constants.State;
 
 public class RestController {
 	private MongoCollection<Document> admins;
@@ -27,15 +31,13 @@ public class RestController {
 		
 		if (application == null) throw new NullPointerException("Application cannot be null.");
 		
-		System.out.println("Application:");
-		System.out.println(application);
-		
 		Document newDocument = new Document()
 				.append("firstName", application.getFirstName()) 
 				.append("lastName", application.getLastName())
 				.append("birthday", application.getBirthday()) 
 				.append("university", application.getUniversity()) 
-				.append("address", application.getAddress());
+				.append("address", application.getAddress())
+				.append("state", State.UNDECIDED.toString());
 		
 		System.out.println("Application to Document:");
 		System.out.println(newDocument);
@@ -45,7 +47,7 @@ public class RestController {
 			
 			System.out.println("Success! Inserted document id: " + result.getInsertedId());
 			
-			return "response_view.xhtml?faces-redirect=true";
+			return "response_view.xhtml?faces-redirect=true&" + result.getInsertedId().asObjectId().getValue().toString();
 			
 		} catch (Exception e) {
 			System.err.println("Unable to insert due to an error: " + e);
@@ -85,9 +87,6 @@ public class RestController {
 		for (Iterator<Document> doc = list.iterator(); doc.hasNext();) {
 			apps.add(new ApplicationDocument(doc.next()));
 		}
-		
-		System.out.println("list after: " + list);
-		System.out.println("apps after: " + apps);
 		return apps;
 	}
 	
@@ -97,6 +96,7 @@ public class RestController {
 		System.out.println(admin);
 		
 		if (admin != null && password.equals(admin.getString("password"))) {
+			System.out.println("admin has logged on!");
 			return "admin_controls?faces-redirect=true";
 		} 
 		
@@ -133,5 +133,11 @@ public class RestController {
 		 * 
 		 * } catch (Exception e) { e.printStackTrace(); }
 		 */
+	}
+
+	public String goToDetails(String id) {
+		ApplicationCollection.current = new ApplicationDocument(applications.find(Filters.eq(new ObjectId(id))).first());
+		//return "application_details?userid=" + ApplicationCollection.current.get_id().toString();
+		return "application_details.xhtml";
 	}
 }

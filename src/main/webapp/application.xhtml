@@ -31,19 +31,19 @@
 		<h:form enctype="multipart/form-data" >
 		
 			<h:panelGrid columns="2">
-				İsim: <h:inputText id="firstName" required="true" value="#{app.firstName}"   />
+				İsim: <h:inputText id="firstName" required="true" value="#{appdoc.firstName}"   />
 			
 				
 				
-				Soyisim: <h:inputText id="lastName" required="true" value="#{app.lastName}" requiredMessage="Lütfen başvuruyu göndermeden önce soyadınızı giriniz." />
+				Soyisim: <h:inputText id="lastName" required="true" value="#{appdoc.lastName}" requiredMessage="Lütfen başvuruyu göndermeden önce soyadınızı giriniz." />
 				
 				
 				
-				Doğum Tarihi: <h:inputText id="birthday" p:type="date" required="true" value="#{app.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz."/>
+				Doğum Tarihi: <h:inputText id="birthday" p:type="date" required="true" value="#{appdoc.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz."/>
 				
-				Üniversite: <h:inputText id="university" required="true" value="#{app.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
+				Üniversite: <h:inputText id="university" required="true" value="#{appdoc.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
 				
-				Tam Adres: <h:inputTextarea id="address" required="true" value="#{app.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
+				Tam Adres: <h:inputTextarea id="address" required="true" value="#{appdoc.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
 				
 				
 			
@@ -52,7 +52,7 @@
 			
 			<br/><br/>
 			
-			<h:commandButton id="send-document" value="Gönder" action="#{app.sendApplication}" />
+			<h:commandButton id="send-document" value="Gönder" action="#{appdoc.sendApplication()}" />
 		</h:form>
 		
 		

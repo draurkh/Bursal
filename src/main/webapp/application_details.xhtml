@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html lang="tr"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -12,7 +11,13 @@
     xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
     xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-	
-
+	<h:head>
+		<title>#{app_coll.current.toListEntry()} - Burs Başvurusu</title>
+	</h:head>
+	<h:body>
+		<H1>SELAM HERKESE!</H1>
+		<br/>
+		ID: #{app_coll.current.get_id()}
+	</h:body>
 
 </html>

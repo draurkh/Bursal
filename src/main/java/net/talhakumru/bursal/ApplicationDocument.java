@@ -1,19 +1,21 @@
 package net.talhakumru.bursal;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-@ManagedBean(name = "app")
-@RequestScoped
+import net.talhakumru.bursal.Constants.State;
+
+@SessionScoped
+@ManagedBean(name = "appdoc")
 public class ApplicationDocument {
 	
 	private final short CV_FILE_SIZE_LIMIT = 5; // MB
 	
-	private ObjectId _id;
+	private ObjectId id;
+	private State state;
 	private String firstName;
 	private String lastName;
 	private String birthday;
@@ -26,20 +28,29 @@ public class ApplicationDocument {
 	}
 	
 	public ApplicationDocument(Document doc) {
-		_id = doc.getObjectId("_id");
+		id = doc.getObjectId("_id");
 		firstName = doc.getString("firstName");
 		lastName = doc.getString("lastName");
 		birthday = doc.getString("birthday");
 		university = doc.getString("university");
 		address = doc.getString("address");
+		state = State.valueOf(doc.getString("state"));
 	}
 
 	public ObjectId get_id() {
-		return _id;
+		return id;
 	}
 
 	public void set_id(ObjectId _id) {
-		this._id = _id;
+		this.id = _id;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public String getFirstName() {
@@ -117,7 +128,7 @@ public class ApplicationDocument {
 	
 	@Override
 	public String toString() {
-		return  "Application [\n _id=" + _id + "\n  firstName=" + firstName + ",\n  lastName=" + lastName + "\n  birthday=" + birthday + "\n  university=" + university + "\n  address=" + address + "\n]";
+		return  "Application [\n _id=" + id + "\n  firstName=" + firstName + ",\n  lastName=" + lastName + "\n  birthday=" + birthday + "\n  university=" + university + "\n  address=" + address + "\n  state=" + state.toString() + "\n]";
 	}
 	
 	

@@ -3,47 +3,49 @@ package net.talhakumru.bursal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
+
 @ManagedBean(name = "app_coll")
+@ApplicationScoped
 public class ApplicationCollection {
 	
 	private ArrayList<ApplicationDocument> applications;
-	private List<String> listEntries;
+	public static ApplicationDocument current;
+	private RestController restController;
 	
 	public ApplicationCollection() {
 		applications = new ArrayList<ApplicationDocument>();
-		listEntries = new ArrayList<String>();
+		current = null;
+		restController = new RestController();
 	}
 	
 	public ArrayList<ApplicationDocument> getApplications() {
 		setApplications();
 		return applications;
 	}
+	
+	public ApplicationDocument getCurrent() {
+		return current;
+	}
 
 	private void setApplications() {
 		applications.clear();
-		applications.addAll(new RestController().getApplications());
+		applications.addAll(restController.getApplications());
 		if (applications == null) {
 			System.out.println("it is null bro");
 		} else {
 			System.out.println("hmmm, it's not null it seems");
 		}
-		System.out.println(applications);
+		// System.out.println(applications);
 	}
 	
-	public List<String> getListEntries() {
-		setListEntries();
-		return listEntries;
-	}
-
-	private void setListEntries() {
-		setApplications();
-		listEntries.clear();
-		for (int i = 0; i < applications.size(); i++) {
-			listEntries.add(applications.get(i).toListEntry());
-		}
-		System.out.println(listEntries);
+	public String goToDetails(String id) {
+		System.out.println("\n Going to details with id:" + id);
+		return restController.goToDetails(id);
 	}
 	
 }

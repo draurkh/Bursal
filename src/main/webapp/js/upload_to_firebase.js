@@ -20,5 +20,9 @@ const cv_files = ref(storage, 'cv-storage')
 var file_name = document.getElementById("first")
 
 document.getElementById("send-document").onclick = function lol() { 
-	console.log("hello!")
+	console.log("hello!");
 };
+
+function setCurrent(id) {
+	console.log();
+}
