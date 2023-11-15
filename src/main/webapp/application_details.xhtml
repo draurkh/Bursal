@@ -15,9 +15,32 @@
 		<title>#{app_coll.current.toListEntry()} - Burs Başvurusu</title>
 	</h:head>
 	<h:body>
-		<H1>SELAM HERKESE!</H1>
-		<br/>
-		ID: #{app_coll.current.get_id()}
+		<h1>Burs Detayları</h1>
+		<table cellspacing="10%">
+			<tr>
+				<td>İsim Soyisim:</td>
+				<td>#{app_coll.current.toListEntry()}</td>
+			</tr>
+			<tr>
+				<td>Doğum Tarihi</td>
+				<td>#{app_coll.current.birthday}</td>
+			</tr>
+			<tr>
+				<td>Üniversite:</td>
+				<td>#{app_coll.current.university}</td>
+			</tr>
+			<tr>
+				<td>Adres:</td>
+				<td>#{app_coll.current.address}</td>
+			</tr>
+		</table>
+		
+		<h:form>
+			<h:panelGroup>
+				<h:commandButton value="Onayla" label="Accept" id="accept_button" action="#{app_coll.current.approve()}" />
+				<h:commandButton value="Reddet" label="Deny" id="deny_button" action="#{app_coll.current.deny()}" />
+			</h:panelGroup>
+		</h:form>
 	</h:body>
 
 </html>

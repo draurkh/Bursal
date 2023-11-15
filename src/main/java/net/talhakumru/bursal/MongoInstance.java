@@ -15,6 +15,7 @@ import com.mongodb.client.MongoDatabase;
 public class MongoInstance {
 	
 	private final String connectionURI = "mongodb+srv://bursal-webapp:Kue5kYqwpOrGkcE9@bursal-cluster.6aonal5.mongodb.net/?retryWrites=true&w=majority";
+	//private final String connectionURI = "mongodb://localhost:27017/";
 	private static MongoDatabase mongoDatabase = null;
 	private MongoClient mongoClient;
 	

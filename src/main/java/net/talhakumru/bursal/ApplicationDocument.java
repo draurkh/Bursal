@@ -113,6 +113,25 @@ public class ApplicationDocument {
 		return new RestController().sendApplication(this);
 	}
 	
+	public Document appToDoc() {
+		System.out.println("entered: appToDoc()");
+		return new Document().append("_id", id)
+				.append("firstName", this.getFirstName()) 
+				.append("lastName", this.getLastName())
+				.append("birthday", this.getBirthday()) 
+				.append("university", this.getUniversity()) 
+				.append("address", this.getAddress())
+				.append("state", this.state.toString());
+	}
+	
+	public String approve() {
+		return new RestController().changeState(id, State.APPROVED);
+	}
+	
+	public String deny() {
+		return new RestController().changeState(id, State.DENIED);
+	}
+	
 	private boolean checkFileSize(long size) {
 		int sizeInMBs = (int) size / 1024 / 1024;
 		return sizeInMBs < CV_FILE_SIZE_LIMIT;

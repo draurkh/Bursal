@@ -19,7 +19,7 @@
     
     	<h1>BURS BAŞVURULARI</h1>
     	
-    	<table cellspacing="20" >
+    	<table cellspacing="20" style="font-size: 1.5em" >
     		<thead >
     			<tr  >
     				<th align="left">Başvuran</th>
@@ -36,19 +36,13 @@
    							</h:form>
    						</td>
    						<td> 
-   							#{app_entry.state.label}
+   							<h:outputText id="state" style="color:#{app_entry.state.color};" value="#{app_entry.state.label}" />
  						</td>
    						<td>#{app_entry.get_id().getDate()}</td>
    					</tr>
    				</ui:repeat>
     		</tbody>
 		</table>
-		
-		<script>
-			function setCurrent() {
-				
-			}
-		</script>
     </h:body>
     
 </html>

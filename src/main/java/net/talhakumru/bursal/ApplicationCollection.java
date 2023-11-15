@@ -44,7 +44,7 @@ public class ApplicationCollection {
 	}
 	
 	public String goToDetails(String id) {
-		System.out.println("\n Going to details with id:" + id);
+		System.out.println("Going to details with id: " + id);
 		return restController.goToDetails(id);
 	}
 	

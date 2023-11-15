@@ -11,7 +11,10 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.internal.MongoDatabaseImpl;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.lang.NonNull;
 
@@ -31,13 +34,8 @@ public class RestController {
 		
 		if (application == null) throw new NullPointerException("Application cannot be null.");
 		
-		Document newDocument = new Document()
-				.append("firstName", application.getFirstName()) 
-				.append("lastName", application.getLastName())
-				.append("birthday", application.getBirthday()) 
-				.append("university", application.getUniversity()) 
-				.append("address", application.getAddress())
-				.append("state", State.UNDECIDED.toString());
+		Document newDocument = application.appToDoc();
+		newDocument.put("state", State.UNDECIDED.toString());
 		
 		System.out.println("Application to Document:");
 		System.out.println(newDocument);
@@ -136,8 +134,15 @@ public class RestController {
 	}
 
 	public String goToDetails(String id) {
-		ApplicationCollection.current = new ApplicationDocument(applications.find(Filters.eq(new ObjectId(id))).first());
+		ApplicationCollection.current = new ApplicationDocument(applications.find(eq(new ObjectId(id))).first());
 		//return "application_details?userid=" + ApplicationCollection.current.get_id().toString();
 		return "application_details.xhtml";
+	}
+
+	public String changeState(ObjectId id, State state) {
+		System.out.println("entered RestController.changeState() with state: " + state);
+		Document document = applications.findOneAndUpdate(eq(id), Updates.set("state", state.toString()));
+		System.out.println("found document: " + document);
+		return "admin_controls?faces-redirect=true";
 	}
 }
