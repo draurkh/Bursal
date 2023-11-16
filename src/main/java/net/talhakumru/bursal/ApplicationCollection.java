@@ -14,7 +14,7 @@ public class ApplicationCollection {
 	private RestController restController;
 
 	public ApplicationCollection() {
-		applications = new ArrayList<ApplicationDocument>();
+		applications = new ArrayList<>();
 		current = null;
 		restController = new RestController();
 	}

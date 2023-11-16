@@ -57,24 +57,24 @@ public class RestController {
 		/*
 		 * URI uri; try { uri = new URI(Constants.REQUEST_URL + "?auth=" +
 		 * Constants.API_KEY);
-		 * 
+		 *
 		 * HttpRequest request = HttpRequest.newBuilder() .uri(uri)
 		 * .POST(BodyPublishers.ofString(jsonRequest)) .build();
-		 * 
+		 *
 		 * System.out.println(jsonRequest);
-		 * 
+		 *
 		 * HttpClient client = HttpClient.newHttpClient(); client.sendAsync(request,
 		 * BodyHandlers.ofString()) .thenApply(HttpResponse::body)
 		 * .thenAccept(System.out::println) .join();
-		 * 
+		 *
 		 * } catch (Exception e) { e.printStackTrace(); }
 		 */
 	}
 
 	// gets all applications stored in the database
 	public List<ApplicationDocument> getApplications() {
-		ArrayList<ApplicationDocument> apps = new ArrayList<ApplicationDocument>();
-		List<Document> list = applications.find().into(new ArrayList<Document>());
+		ArrayList<ApplicationDocument> apps = new ArrayList<>();
+		List<Document> list = applications.find().into(new ArrayList<>());
 
 		for (Iterator<Document> doc = list.iterator(); doc.hasNext();) {
 			apps.add(new ApplicationDocument(doc.next()));
@@ -98,26 +98,26 @@ public class RestController {
 		// Firebase Code - not working
 		/*
 		 * //URI uri;
-		 * 
+		 *
 		 * try { //URI uri1 = new URI("https", null,
 		 * "//bursal-8bbc3-default-rtdb.europe-west1.firebasedatabase.app.json", "auth="
 		 * + Constants.API_KEY + "&orderBy=\"email\"&equalTo=\"" + email + "\"", null);
-		 * 
+		 *
 		 * URI uri2 = new URI("https", null,
 		 * "//bursal-8bbc3-default-rtdb.europe-west1.firebasedatabase.app/admins.json",
 		 * "auth=" + Constants.API_KEY + "&orderBy=\"email\"&equalTo=\"" + email + "\"",
 		 * null); System.out.println("URL: " + uri2.toASCIIString());
-		 * 
+		 *
 		 * HttpRequest request = HttpRequest.newBuilder() .uri(uri2) .build();
-		 * 
-		 * 
+		 *
+		 *
 		 * HttpClient client = HttpClient.newHttpClient(); HttpResponse<String> response
 		 * = client.send(request, BodyHandlers.ofString());
-		 * 
+		 *
 		 * System.out.println(response.body());
-		 * 
+		 *
 		 * try { System.out.println(System.getProperty("user.dir"));
-		 * 
+		 *
 		 * } catch (Exception e) { e.printStackTrace(); }
 		 */
 	}
