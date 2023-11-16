@@ -33,12 +33,18 @@
 				<td>Adres:</td>
 				<td>#{app_coll.current.address}</td>
 			</tr>
+			<tr>
+				<td>CV:</td>
+				<td> 
+					<h:form accept="image/*,.pdf"> <h:commandLink id="download-cv" value="#{app_coll.current.cvFileName}" action="#{app_coll.current.downloadCV}"/></h:form>
+				</td>
+			</tr>
 		</table>
 		
 		<h:form>
 			<h:panelGroup>
-				<h:commandButton value="Onayla" label="Accept" id="accept_button" action="#{app_coll.current.approve()}" />
-				<h:commandButton value="Reddet" label="Deny" id="deny_button" action="#{app_coll.current.deny()}" />
+				<h:commandButton value="Onayla" label="Accept" id="accept_button" action="#{app_coll.current.approve}" />
+				<h:commandButton value="Reddet" label="Deny" id="deny_button" action="#{app_coll.current.deny}" />
 			</h:panelGroup>
 		</h:form>
 	</h:body>

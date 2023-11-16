@@ -1,6 +1,0 @@
-CV: <h:inputFile id="cv-file" p:type="file" p:accept="image/*,.pdf" value="#{app.cv}" />
-
-
-<a href="application_details" onclick="#{app_entry.get_id()}" >#{app_entry.toListEntry()}</a>
-
-<h:commandLink value="#{app_entry.toListEntry()}" action="#{app_coll.goToDetails(app_entry.get_id().toString())}"/>

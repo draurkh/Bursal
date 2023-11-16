@@ -32,13 +32,13 @@
    					<tr>
    						<td align="left">
    							<h:form>
-   								<h:commandLink value="#{app_entry.toListEntry()}" action="#{app_coll.goToDetails(app_entry.get_id().toString())}"/>
+   								<h:commandLink value="#{app_entry.toListEntry()}" action="#{app_coll.goToDetails(app_entry.getId().toString())}"/>
    							</h:form>
    						</td>
    						<td> 
    							<h:outputText id="state" style="color:#{app_entry.state.color};" value="#{app_entry.state.label}" />
  						</td>
-   						<td>#{app_entry.get_id().getDate()}</td>
+   						<td>#{app_entry.getId().getDate()}</td>
    					</tr>
    				</ui:repeat>
     		</tbody>

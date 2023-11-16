@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 
 <html lang="tr"
@@ -18,41 +19,47 @@
 		</style>
 	</h:head>
 	<h:body>
-	
-		
+		<br/>
 		<a href="admin_login.xhtml">
 			<button>Yönetici Girişi Yapın</button>
 		</a>
+		<hr/>
+		<br/><br/>
 		
-		<br/><br/><br/>
+		<h1>BURS BAŞVURUSU</h1>
+		<br/>
 	
-		<h:messages styleClass="error" ></h:messages>
-	
-		<h:form enctype="multipart/form-data" >
+		<h:form enctype="multipart/form-data" style="font-size:1.2em" >
 		
-			<h:panelGrid columns="2">
-				İsim: <h:inputText id="firstName" required="true" value="#{appdoc.firstName}"   />
-			
+			<h:panelGrid columns="3">
+				İsim: 
+				<h:inputText id="firstName" label="firstName" required="true" value="#{appdoc.firstName}" requiredMessage="Bu alan zorunludur."  />
+				<h:message for="firstName" styleClass="error" />
 				
+				Soyisim: 
+				<h:inputText id="lastName" label="lastName" required="true" value="#{appdoc.lastName}" requiredMessage="Bu alan zorunludur." />
+				<h:message for="lastName" styleClass="error" />
 				
-				Soyisim: <h:inputText id="lastName" required="true" value="#{appdoc.lastName}" requiredMessage="Lütfen başvuruyu göndermeden önce soyadınızı giriniz." />
+				Doğum Tarihi: 
+				<h:inputText id="birthday" label="birthday" p:type="date" required="true" value="#{appdoc.birthday}" requiredMessage="Bu alan zorunludur."/>
+				<h:message for="birthday" styleClass="error" />
 				
+				Üniversite: 
+				<h:inputText id="university" label="university" required="true" value="#{appdoc.university}" requiredMessage="Bu alan zorunludur." />
+				<h:message for="university" styleClass="error" />
 				
+				Tam Adres: 
+				<h:inputTextarea id="address" label="address" required="true" value="#{appdoc.address}" requiredMessage="Bu alan zorunludur." />
+				<h:message for="address" styleClass="error" />
 				
-				Doğum Tarihi: <h:inputText id="birthday" p:type="date" required="true" value="#{appdoc.birthday}" requiredMessage="Lütfen başvuruyu göndermeden önce doğum tarihinizi giriniz."/>
-				
-				Üniversite: <h:inputText id="university" required="true" value="#{appdoc.university}" requiredMessage="Lütfen başvuruyu göndermeden önce üniversitenizin adını giriniz." />
-				
-				Tam Adres: <h:inputTextarea id="address" required="true" value="#{appdoc.address}" requiredMessage="Lütfen başvuruyu göndermeden önce adresinizi giriniz." />
-				
-				
-			
-				
+				CV (PDF veya görsel):   
+				<h:inputFile id="cv-file"  label="cv" p:type="file" p:accept="image/*,.pdf" value="#{appdoc.cvFile}"
+					required="true"  requiredMessage="Bu alan zorunludur." validator="#{appdoc.validateCV}" />
+				<h:message for="cv-file" styleClass="error" />
 			</h:panelGrid>
-			
 			<br/><br/>
 			
-			<h:commandButton id="send-document" value="Gönder" action="#{appdoc.sendApplication()}" />
+			<h:commandButton id="send-document" value="Gönder" action="#{appdoc.send}" />
 		</h:form>
 		
 		

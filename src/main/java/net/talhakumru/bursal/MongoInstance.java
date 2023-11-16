@@ -14,15 +14,15 @@ import com.mongodb.client.MongoDatabase;
 
 public class MongoInstance {
 	
-	private final String connectionURI = "mongodb+srv://bursal-webapp:Kue5kYqwpOrGkcE9@bursal-cluster.6aonal5.mongodb.net/?retryWrites=true&w=majority";
-	//private final String connectionURI = "mongodb://localhost:27017/";
+	private final String CONNECTION_URI = "mongodb+srv://bursal-webapp:" + Constants.MONGO_CLUSTER_PASSWD + "@bursal-cluster.6aonal5.mongodb.net/?retryWrites=true&w=majority";
 	private static MongoDatabase mongoDatabase = null;
 	private MongoClient mongoClient;
 	
 	private MongoInstance() {
+		// to enable POJO
 		CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
 		CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
-		mongoClient = MongoClients.create(connectionURI);
+		mongoClient = MongoClients.create(CONNECTION_URI);
 		try {
 			mongoDatabase = mongoClient.getDatabase("bursal").withCodecRegistry(pojoCodecRegistry);
 		} catch (Exception e) {
@@ -30,6 +30,7 @@ public class MongoInstance {
 		}
 	}
 
+	// only one instance of database is allowed
 	public static MongoDatabase getMongoDatabase() {
 		if (mongoDatabase == null) {
 			new MongoInstance();

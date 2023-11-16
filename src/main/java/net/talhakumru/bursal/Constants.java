@@ -1,9 +1,11 @@
 package net.talhakumru.bursal;
 
 public class Constants {
-	public static final String API_KEY = "qfnXIirS9uRgcHHwNc6yLoiNuSpBFZcD4UKSs1zo";
-	public static final String REQUEST_URL = "https://bursal-8bbc3-default-rtdb.europe-west1.firebasedatabase.app/applications.json";
+	// directory of uploaded cv files
+	public static final String CV_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + "cv_files";
+	public static final String MONGO_CLUSTER_PASSWD = "Kue5kYqwpOrGkcE9";
 	
+	// approval state of scholarship application
 	public enum State{
 		UNDECIDED("Karar verilmedi.", "#ffad33"),
 		APPROVED("Onaylandı.", "#00cc66"),

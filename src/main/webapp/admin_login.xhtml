@@ -26,10 +26,13 @@
     	<h:form>
     	
     		<h:panelGrid columns="3" >
-    			E-posta: <h:inputText id="email" label="email" value="#{admin.email}" required="true" requiredMessage="E-posta bölümü zorunludur." />
+    			E-posta: 
+    			<h:inputText id="email" label="email" value="#{admin.email}" required="true" requiredMessage="E-posta bölümü zorunludur." />
     			<h:message for="email" styleClass="error" ></h:message>
 	    	
-	    		Şifre: <h:inputSecret id="passwd" label="password" value="#{admin.password}" required="true" requiredMessage="Şifre bölümü zorunludur." />
+	    		Şifre: 
+	    		<h:inputSecret id="passwd" label="password" value="#{admin.password}" 
+	    			required="true" requiredMessage="Şifre bölümü zorunludur." />
 	    		<h:message for="passwd" styleClass="error" ></h:message>
 	    		
 	    		

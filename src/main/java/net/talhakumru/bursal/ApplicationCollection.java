@@ -1,20 +1,16 @@
 package net.talhakumru.bursal;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-
-import org.apache.commons.collections4.IterableUtils;
-import org.apache.commons.collections4.Predicate;
 
 @ManagedBean(name = "app_coll")
 @ApplicationScoped
 public class ApplicationCollection {
 	
 	private ArrayList<ApplicationDocument> applications;
-	public static ApplicationDocument current;
+	public static ApplicationDocument current;	// used when displaying only one application with details
 	private RestController restController;
 	
 	public ApplicationCollection() {
@@ -35,12 +31,6 @@ public class ApplicationCollection {
 	private void setApplications() {
 		applications.clear();
 		applications.addAll(restController.getApplications());
-		if (applications == null) {
-			System.out.println("it is null bro");
-		} else {
-			System.out.println("hmmm, it's not null it seems");
-		}
-		// System.out.println(applications);
 	}
 	
 	public String goToDetails(String id) {

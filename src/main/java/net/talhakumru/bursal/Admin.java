@@ -16,6 +16,8 @@ public class Admin {
 		email = "talha.kumru767@gmail.com";
 	}
 	
+	// GETTERS and SETTERS
+	
 	public ObjectId get_id() {
 		return _id;
 	}
@@ -47,7 +49,6 @@ public class Admin {
 
 	public String login() {
 		RestController restController = new RestController();
-		
 		return restController.loginAsAdmin(email, password);
 	}
 	

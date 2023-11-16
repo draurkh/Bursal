@@ -11,9 +11,6 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.internal.MongoDatabaseImpl;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.lang.NonNull;
@@ -30,6 +27,7 @@ public class RestController {
 		applications  = database.getCollection("applications");
 	}
 
+	// sends the submitted application to remote database
 	public String sendApplication(@NonNull ApplicationDocument application) {
 		
 		if (application == null) throw new NullPointerException("Application cannot be null.");
@@ -45,14 +43,16 @@ public class RestController {
 			
 			System.out.println("Success! Inserted document id: " + result.getInsertedId());
 			
-			return "response_view.xhtml?faces-redirect=true&" + result.getInsertedId().asObjectId().getValue().toString();
+			return "positive_response_view.xhtml?faces-redirect=true&id=" + result.getInsertedId().asObjectId().getValue().toString();
 			
 		} catch (Exception e) {
 			System.err.println("Unable to insert due to an error: " + e);
+			
+			return "negative_response_view.xhtml?faces-redirect=true";
 		}
 		
 		
-		// Firebase Code
+		// Firebase Code - not working
 		/*
 		 * URI uri; try { uri = new URI(Constants.REQUEST_URL + "?auth=" +
 		 * Constants.API_KEY);
@@ -66,19 +66,13 @@ public class RestController {
 		 * BodyHandlers.ofString()) .thenApply(HttpResponse::body)
 		 * .thenAccept(System.out::println) .join();
 		 * 
-		 * } catch (Exception e) { // TODO Auto-generated catch block
+		 * } catch (Exception e) { 
 		 * e.printStackTrace(); }
 		 */
-			
-		return null;
 	}
 	
+	// gets all applications stored in the database
 	public List<ApplicationDocument> getApplications() {
-		//ArrayList<ScholarshipApplication> list = applications.find().into(new ArrayList<ScholarshipApplication>());
-		/*
-		 * for (ScholarshipApplication application : applications.find()) {
-		 * list.add(application); }
-		 */
 		ArrayList<ApplicationDocument> apps = new ArrayList<ApplicationDocument>() ;
 		List<Document> list = applications.find().into(new ArrayList<Document>());
 		
@@ -88,6 +82,7 @@ public class RestController {
 		return apps;
 	}
 	
+	// validates admin credentials
 	public String loginAsAdmin(String email, String password) {
 		
 		Document admin = admins.find(eq("email", email)).first();
@@ -101,7 +96,7 @@ public class RestController {
 		return null;
 		
 		
-		// Firebase Code
+		// Firebase Code - not working
 		/*
 		 * //URI uri;
 		 * 
@@ -125,20 +120,16 @@ public class RestController {
 		 * try { System.out.println(System.getProperty("user.dir"));
 		 * 
 		 * } catch (Exception e) { e.printStackTrace(); }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * } catch (Exception e) { e.printStackTrace(); }
 		 */
 	}
 
+	// redirects to application_details page with given id
 	public String goToDetails(String id) {
 		ApplicationCollection.current = new ApplicationDocument(applications.find(eq(new ObjectId(id))).first());
-		//return "application_details?userid=" + ApplicationCollection.current.get_id().toString();
 		return "application_details.xhtml";
 	}
 
+	// approval state is changed
 	public String changeState(ObjectId id, State state) {
 		System.out.println("entered RestController.changeState() with state: " + state);
 		Document document = applications.findOneAndUpdate(eq(id), Updates.set("state", state.toString()));
