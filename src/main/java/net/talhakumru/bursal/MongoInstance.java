@@ -13,11 +13,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
 public class MongoInstance {
-	
-	private final String CONNECTION_URI = "mongodb+srv://bursal-webapp:" + Constants.MONGO_CLUSTER_PASSWD + "@bursal-cluster.6aonal5.mongodb.net/?retryWrites=true&w=majority";
+
+	private final String CONNECTION_URI = "mongodb+srv://bursal-webapp:" + Constants.MONGO_CLUSTER_PASSWD
+			+ "@bursal-cluster.6aonal5.mongodb.net/?retryWrites=true&w=majority";
 	private static MongoDatabase mongoDatabase = null;
 	private MongoClient mongoClient;
-	
+
 	private MongoInstance() {
 		// to enable POJO
 		CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
@@ -34,8 +35,8 @@ public class MongoInstance {
 	public static MongoDatabase getMongoDatabase() {
 		if (mongoDatabase == null) {
 			new MongoInstance();
-		} 
-		
+		}
+
 		return mongoDatabase;
 	}
 }

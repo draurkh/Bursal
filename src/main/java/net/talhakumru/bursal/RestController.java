@@ -20,38 +20,39 @@ import net.talhakumru.bursal.Constants.State;
 public class RestController {
 	private MongoCollection<Document> admins;
 	private MongoCollection<Document> applications;
-	
+
 	public RestController() {
 		MongoDatabase database = MongoInstance.getMongoDatabase();
 		admins = database.getCollection("admins");
-		applications  = database.getCollection("applications");
+		applications = database.getCollection("applications");
 	}
 
 	// sends the submitted application to remote database
 	public String sendApplication(@NonNull ApplicationDocument application) {
-		
-		if (application == null) throw new NullPointerException("Application cannot be null.");
-		
+
+		if (application == null)
+			throw new NullPointerException("Application cannot be null.");
+
 		Document newDocument = application.appToDoc();
 		newDocument.put("state", State.UNDECIDED.toString());
-		
+
 		System.out.println("Application to Document:");
 		System.out.println(newDocument);
-		
+
 		try {
 			InsertOneResult result = applications.insertOne(newDocument);
-			
+
 			System.out.println("Success! Inserted document id: " + result.getInsertedId());
-			
-			return "positive_response_view.xhtml?faces-redirect=true&id=" + result.getInsertedId().asObjectId().getValue().toString();
-			
+
+			return "positive_response_view.xhtml?faces-redirect=true&id="
+					+ result.getInsertedId().asObjectId().getValue().toString();
+
 		} catch (Exception e) {
 			System.err.println("Unable to insert due to an error: " + e);
-			
+
 			return "negative_response_view.xhtml?faces-redirect=true";
 		}
-		
-		
+
 		// Firebase Code - not working
 		/*
 		 * URI uri; try { uri = new URI(Constants.REQUEST_URL + "?auth=" +
@@ -66,36 +67,34 @@ public class RestController {
 		 * BodyHandlers.ofString()) .thenApply(HttpResponse::body)
 		 * .thenAccept(System.out::println) .join();
 		 * 
-		 * } catch (Exception e) { 
-		 * e.printStackTrace(); }
+		 * } catch (Exception e) { e.printStackTrace(); }
 		 */
 	}
-	
+
 	// gets all applications stored in the database
 	public List<ApplicationDocument> getApplications() {
-		ArrayList<ApplicationDocument> apps = new ArrayList<ApplicationDocument>() ;
+		ArrayList<ApplicationDocument> apps = new ArrayList<ApplicationDocument>();
 		List<Document> list = applications.find().into(new ArrayList<Document>());
-		
+
 		for (Iterator<Document> doc = list.iterator(); doc.hasNext();) {
 			apps.add(new ApplicationDocument(doc.next()));
 		}
 		return apps;
 	}
-	
+
 	// validates admin credentials
 	public String loginAsAdmin(String email, String password) {
-		
+
 		Document admin = admins.find(eq("email", email)).first();
 		System.out.println(admin);
-		
+
 		if (admin != null && password.equals(admin.getString("password"))) {
 			System.out.println("admin has logged on!");
 			return "admin_controls?faces-redirect=true";
-		} 
-		
+		}
+
 		return null;
-		
-		
+
 		// Firebase Code - not working
 		/*
 		 * //URI uri;
