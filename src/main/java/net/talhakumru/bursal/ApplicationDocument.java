@@ -177,9 +177,12 @@ public class ApplicationDocument {
 																					// counter
 			System.out.println("File name: " + cvFileName);
 
-			// files are saved locally to <user.home>\cv_files
-			File savedFile = new File(Constants.CV_DIR, cvFileName);
-			System.out.println("Saved file path: " + savedFile.getAbsolutePath());
+			// files are saved locally to <user.home>/cv_files
+			File cv_dir = new File(Constants.CV_DIR);
+			cv_dir.mkdirs();
+			
+			File savedFile = new File(cv_dir.getAbsolutePath(), cvFileName);
+			System.out.println("Saved file to path: " + savedFile.getAbsolutePath());
 
 			Files.copy(input, savedFile.toPath());
 
