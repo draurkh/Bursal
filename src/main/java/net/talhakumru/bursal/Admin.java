@@ -13,7 +13,7 @@ public class Admin {
 	private String password;
 
 	public Admin() {
-		email = "talha.kumru767@gmail.com";
+		
 	}
 
 	// GETTERS and SETTERS
